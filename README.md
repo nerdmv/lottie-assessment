@@ -1,5 +1,5 @@
 ## Developer Assesment: In-Browser Plugin System
-### Tecknologies
+### Technologies
 - Vite
 - React
 - FebricJS
