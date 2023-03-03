@@ -1,0 +1,66 @@
+<div x-data="{pokemons: []}" x-init="console.log('main', main)">
+  <h2>Pokemon Finder</h2>
+  <div id="pokemons" class="pokemons"></div>
+</div>
+<script src="//unpkg.com/alpinejs" defer></script>
+<style>
+  .pokemons {
+    display: grid;
+    justify-items: center;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .pokemon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+</style>
+<script>
+  const getPokemonImageURL = (pokemonIndex) =>
+    'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/' +
+    pokemonIndex +
+    '.png';
+
+  async function main() {
+    const BASE_URL = 'https://pokeapi.co/api/v2/pokemon/';
+    async function fetchPokemons() {
+      const resp = await fetch(BASE_URL).then((res) => res.json());
+      return resp;
+    }
+    const resp = await fetchPokemons();
+    const container = document.getElementById('pokemons');
+    resp.results.forEach((pokemon) => {
+      const imageSrc = getPokemonImageURL(pokemon.url.split('/').at(-2))
+      const wrapper = document.createElement('div')
+      wrapper.className = 'pokemon';
+      const button = document.createElement('button')
+      const img = document.createElement('img')
+      img.src = imageSrc;
+      img.alt = pokemon.name;
+
+      const nameEl = document.createElement('p');
+      nameEl.innerText = pokemon.name;
+      button.appendChild(img)
+      wrapper.appendChild(button);
+      wrapper.appendChild(nameEl);
+      container.appendChild(wrapper);
+
+      button.addEventListener('click', () => {
+        // send message to editor.
+        window.parent.postMessage(
+          JSON.stringify({
+            event: 'editor:addImageFromURL',
+            params: [imageSrc],
+            closePlugin: true,
+          }),
+          '*',
+        );
+      })
+    })
+  }
+
+  main();
+
+</script>

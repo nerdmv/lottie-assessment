@@ -1,0 +1,11 @@
+{
+  "decription": "Mock Plugins Api",
+  "plugins": [
+    {
+      "id": "1231240124d",
+      "name": "Pokemon Finder",
+      "icon": "/plugins/PokemonPicker/icon.svg",
+      "path": "/plugins/PokemonPicker/ui.html"
+    }
+  ]
+}

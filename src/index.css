@@ -1,0 +1,32 @@
+@tailwind base;
+@layer base {
+  h1 {
+    @apply text-2xl;
+  }
+  h2 {
+    @apply text-xl;
+  }
+  h3 {
+    @apply text-lg;
+  }
+  a {
+    @apply text-blue-600 underline;
+  }
+}
+@tailwind components;
+@tailwind utilities;
+
+.bg-dots {
+  background: white;
+  background-image: radial-gradient(black 1px, transparent 0);
+  background-size: 40px 40px;
+  background-position: -19px -19px;
+}
+.swatches-picker > div > div {
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+
+[hidden] {
+  display: none !important;
+}
